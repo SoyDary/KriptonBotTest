@@ -1,0 +1,5 @@
+name: KriptonBot
+main: me.Dary.KriptonBotBungee.KriptonBot
+author: Dariela
+description: ${project.description}
+version: ${project.version}

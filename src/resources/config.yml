@@ -1,0 +1,234 @@
+BotToken: "key de discord"
+Connection: 
+  host: 'localhost'
+  database: '---'
+  username: '---'
+  password: '---'
+
+LogChannel: 
+  enabled: true
+  id: 1148076467557769417
+
+LoginServer: "prelobby"
+
+Messages:
+  NoAccount: "<embed:generic(> ¡Necesitas tener una cuenta de minecraft vinculada para poder usar esto!;#9e0000;true)>"
+  ResetPassword: "<embed:reset_password>"
+  ResetPasswordSucess: "> La contraseña de tu cuenta ha sido cambiada a: `{password}`\n> \n> `Usa '/cp {password} <contraseña>' para poder cambiarla.`"
+  
+Linking:
+  LinkedRoles: 
+  - 1151517961920720956
+  - 1162084026992038079
+  Messages:
+   # {player_name} {code}
+    MinecraftMessages:
+      Usage: "&b✉ &9Debes usar &#5cbeff/vincular <discordTag/ID>"
+      Unknown_user: "&4✉ &#ff3333¡No se pudo encontrar este usuario! \n   &cDebes unirte a nuestro discord para poder usar esto." 
+      Sucess_message: "&b✉ &#ffff33Se ha enviado un mensaje a &#ffffb3{user_tag} \n   &f&oRevisa tus mensajes privados..."
+      Error_message: "&4✉ &#ff3333¡No se pudo enviar un mensaje privado a esta cuenta! \n &f▸ &7Utiliza el comando &e/vincular {code} &7en discord"
+      AlreadyLinked: "&b✉ &9Tu cuenta ya está vinculada vinculada a &#5cbeff{user_tag}\n &l  &9Usa &#99d6ff/desvincular &9para poder vincularla de nuevo."
+      NoAccount: "&4✉ &#ff3333¡No tienes ninguna cuenta vinculada!"
+      UnlinkedAccount: "&8✉ &7Tu cuenta ha sido desvinculada de &#f7fcff{user_tag}"
+      Link_sucess: "&b✉ &9Cuenta vinculada correctamente a &#5cbeff{user_tag}"
+    DiscordMessages:
+      Link_request: "<embed:link_request({skin_{player_name}};{player_name})>"
+      Link_sucess: "<embed:link_request_sucess>"
+      Invalid_code: "<embed:link_request_invalid_code>"
+      
+TempRoles:
+  #Define el tiempo que pasa para revisar y quitar roles expirados
+  UpdateIterval: 5
+
+#-------------------------------------------------
+#INFORMACION SOBRE LOS COMANDOS
+#
+#Los comandos pueden ser editados todas las veces que se quiera pero si se modifica la key principal
+#el comando se elimina y se crea uno nuevo, no es muy relevante pero es mejor evitar modificarla 
+#porque discord tiene un limite de los comandos que puede registrar un bot por día :)
+#
+#OPCIONES:
+#La key de la opción no puede llevar caracteres extraños y siempre va en minusculas.
+#Un comando puede tener las opciónes que se quiera pero es importante tomar en cuenta que
+#no pueden repetir nombre y aunque la opción de required sea completamente opcional hay que
+#ponerlas en orden de que si tienes varias opciónes, aquellas que tienen el "required: true" 
+#deben ir antes que las que no.
+#-------------------------------------------------
+#TIPOS DE OPCIONES VÁLIDAS:      
+# ATTACHMENT  -> Cualquier archivo   [URL, NAME, ISIMAGE]
+# BOOLEAN     -> true/false          [VALUE]
+# CHANNEL     -> Menciona un canal   [ID, NAME, TYPE]
+# NUMBER      -> Calquier numero     [VALUE]
+# INTEGER     -> Números enteros     [VALUE]
+# ROLE        -> Roles               [ID, NAME, COLOR]
+# STRING      -> Cadena de textos    [VALUE, ISTIMEFORMAT]
+# USER        -> @ de un usuario     [ID, AVATAR, TAG, NAME, PLAYERNAME, SKIN]     
+#Suponiendo que tenemos una opción del tipo usuario usamos {option:miembro(TAG)} en texto es lo equivalente
+#a haber puesto Daryela#5156 (En caso ser invalida o no conseguir respuesta el valor regresado será "null")
+#
+#PARAMETROS DE OPCIONES:
+#min_length -> Define el tamaño maximo en una variable de tipo STRING
+#min_length -> Define el tamaño minimo en una variable de tipo STRING y por defecto es 0
+#min_value -> Define el malor maximo en una variable de tipo INTEGER o NUMBER
+#max_value -> Define el valor maximo en una variable de tipo INTEGER o NUMBER
+#required -> Establece true o false si quieres que sea obligatorio introducir la opción
+#choices -> Introduce una lista con opciones posibles para una opción
+            #Cuando se le agregan choices a una opción no se podrá escribir nada que no sea parte de ellas,
+            #además de que se puede escribir directamente la opcion como "Opcion 1" o ponerle un valor como
+            #"Opción 1;opcion1" y esto hace que en la lista se ve Opcion 1 pero si se selecciona será como 
+            #haber escrito opcion1. (Pero esto solo aplica para las variables de tipo STRING, INTEGER y NUMBER)
+
+#-------------------------------------------------
+#PERMISOS EN COMANDOS:
+#Para establecer un permiso a un comando se puede hacer con 'Permission: <permiso>' o modificando los permisos en el panel de integraciones
+#en el que se le pueden añadir roles para un comando (Los comandos para los que no tienen permiso no aparecen en la lista)
+#-> Todos los permisos en: https://github.com/DV8FromTheWorld/JDA/blob/master/src/main/java/net/dv8tion/jda/api/Permission.java
+#-------------------------------------------------
+#FUNCIONES VALIDAS:
+# [MESSAGE] <CHANNEL_ID> <MESSAGE>
+# [GIVEROLE] <ROLE_ID> <USER_ID>  -> OTORGA UN ROL PERMAMENTE A ALGUIEN Y ELIMINA LA INFORMACIÓN DE UN POSIBLE ROL TEMPORAL
+# [TAKEROLE] <ROLE_ID> <USER_ID> -> ELIMINA UN ROL Y ELIMINA LA INFORMACIÓN DE UN POSIBLE ROL TEMPORAL
+# [GIVETEMPROLE] <ROLE_ID> <TIEMPO> <USUARIO> [#force] -> OTORGA UN ROL TEMPORAL (EL TIEMPO NO SE ACUMULA SI SE EJECUTA MULTIPLES VECES).
+# [PRIVATEMESSAGE] <MESSAGE> >USUARIO>
+# [DISABLEBUTTON] (Solo para botones)
+# [DELETEMESSAGE] (Solo para botones)
+#-------------------------------------------------
+#VARIABLES:
+# {javascript_<nombre>}
+# {user_id}
+# {user_avatar}
+# {user_tag}
+# {user_name}
+# {channel_name}
+# {channel_id}
+# {channel_type}
+# {option_<nombre>:<tipo>}
+# {player_name} <- Solo funciona si el usuario tiene una cuenta vinculada y de lo contralio muestra "null"
+# {skin} <- Solo funciona si el usuario tiene una cuenta vinculada y de lo contralio muestra "null" y en el caso de que tenga una cuenta vinculada pero no una kin muestra su nick
+#-------------------------------------------------
+#
+Commands:
+  prueba_comandos:
+    label: test
+    permission: ADMINISTRATOR
+    description: "comando de pruebas"
+    response: "{javascript_example}"
+    options:
+      puntos:
+        type: INTEGER
+        min_value: 0
+        max_value: 10000
+        description: "Escribe un numero"   
+  skintest:
+    label: acc
+    permission: ADMINISTRATOR
+    description: "comando de pruebas"
+    response: "{javascript_skin;{skin_{option_jugador:VALUE}}}"
+    options:
+      jugador:
+        type: STRING
+        min_length: 3
+        max_length: 16
+        description: "Nombre de un jugador para obtener su skin"  
+
+  staffs:
+    label: "staff"
+    description: "📒 Lista de staffs oficiales."
+    response: "<embed:staffs>"
+  ip:
+    label: "ip"
+    description: "🌲 IP del servidor y su puerto para bedrock"
+    response: "<embed:ip>"
+  tempvip:
+    label: "tempvip"
+    description: "⌛ Otorga un rango VIP temporal a un miembro"
+    permission: VIEW_AUDIT_LOGS
+    response: "<embed:generic(> Otorgaste el rango <@&{option_rango:VALUE}> a <@{option_miembro:ID}> durante `{option_tiempo:VALUE}`;#3652FF;true)>"
+    functions:
+    - '[GIVETEMPROLE] {option_rango:VALUE} {option_tiempo:VALUE} {option_miembro:ID} #force'  #<- Otorgar el rango principal
+    - '[GIVETEMPROLE] 845753583492136960 {option_tiempo:VALUE} {option_miembro:ID} #force' #<- Añadir el separador de Miembros VIP
+    - '[MESSAGE] 795228010139353108 <embed:log_vip([DESDE COMANDO];`{option_miembro:TAG}` - <@{option_miembro:ID}>;<@&{option_rango:VALUE}>;{option_tiempo:VALUE})>'  #<- Mensaje de log
+    conditions: 
+      tiempo:
+        condition: "{option_tiempo:ISTIMEFORMAT} == true"
+        deny_response: '<embed:generic(> `{option_tiempo:VALUE}` es un formato de tiempo inválido.;#FF3636;true)>'
+    options: 
+      miembro:
+        type: USER
+        description: Selecciona un miembro
+        required: true
+      rango:
+        type: STRING
+        description: Selecciona un rango
+        required: true
+        choices:
+        - 'Alpha;724009954284929075'
+        - 'Beta;724009938476728431'
+        - 'Gamma;724009939454132255'
+        - 'Delincuente;724009954284929075'
+        - 'Criminal;724009938476728431'
+        - 'Sicario;724009939454132255'
+        - 'Maniaco;724009941207089193'
+        - 'Padrino;724009934571831307'
+        - 'Warped;724009954284929075'
+        - 'Basalt;724009938476728431'
+        - 'Crimson;724009939454132255'
+      tiempo:
+        type: STRING
+        description: "Escribe el tiempo en formato Xd Xh Xm Xs"
+        required: true   
+  embed:
+    label: "testembed"  
+    permission: MANAGE_CHANNEL
+    description: "Prueba de mensaje"
+    response: "<embed:generic(> Mensaje enviado!;#3652FF;true)>"
+    functions: 
+    - "[MESSAGE] {option_canal:ID} <embed:{option_embed:VALUE}>"
+    options:
+      embed:
+        type: STRING
+        description: "Mensaje"
+        required: true
+        choices:
+        - instrucciones_vip
+      canal:
+        type: CHANNEL
+        description: "Canal"
+        required: true  
+  solicitud_vip:
+    label: "viprequest"
+    description: "💎 Solicita el rango VIP para discord"
+    response: "<embed:generic(> Solicitud enviada!;#3652FF;true)>"
+    functions: 
+    - "[MESSAGE] 789198879802261527 <embed:viprequest>"
+    conditions: 
+      imagen:
+        condition: '{option_imagen:ISIMAGE} == true'
+        deny_response: '<embed:generic(> Debes adjuntar adjuntar una imagen válida para enviar la solicitud.;#FF3636;true)>'
+    options:
+      nombre:
+        type: STRING
+        description: "Escribe tu nombre en minecraft"
+        required: true  
+        min_length: 3
+        max_length: 16
+      rango:
+        type: STRING
+        description: "Escribe tu nombre en minecraft"
+        choices: 
+        - 'Alpha;724009954284929075'
+        - 'Beta;724009938476728431'
+        - 'Gamma;724009939454132255'
+        - 'Delincuente;724009954284929075'
+        - 'Criminal;724009938476728431'
+        - 'Sicario;724009939454132255'
+        - 'Maniaco;724009941207089193'
+        - 'Padrino;724009934571831307'
+        - 'Warped;724009954284929075'
+        - 'Basalt;724009938476728431'
+        - 'Crimson;724009939454132255'
+        required: true  
+      imagen:
+        type: ATTACHMENT
+        description: "Selecciona una imagen dentro del juego presionando el TAB"
+        required: true
